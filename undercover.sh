@@ -37,20 +37,47 @@ if [[ "$XDG_CURRENT_DESKTOP" != "GNOME" ]]; then
     exit 1
 fi
 
-DIR="$(pwd)"
 
-CONFIG_DIR="config"
+# Création config
+if [ ! -d "$HOME/.config" ]; then
+    mkdir "$HOME/.config"
+fi
+CONFIG_DIR="$HOME/.config"
 THEME_BACKUP="$CONFIG_DIR/gnome_theme.bak"
 ICON_BACKUP="$CONFIG_DIR/gnome_icons.bak"
 CURSOR_BACKUP="$CONFIG_DIR/gnome_cursor.bak"
 
+
+# Création fichier windows
+if [ ! -d "$HOME/.themes" ]; then
+    mkdir "$HOME/.themes"
+    cp -R "Windows-10" "$HOME/.themes"
+    loading_animation = " Copie du thème Windows-10               | "
+fi
+
+if [ ! -d "$HOME/.icons" ]; then
+    mkdir "$HOME/.icons"
+    cp -R "Windows-10-Icons" "$HOME/.icons"
+    loading_animation = " Copie des icônes Windows-10             | "
+fi
+WIN_THEME_DIR="$HOME/.themes"
+WIN_ICONS_DIR="$HOME/.icons"
 WIN_THEME="Windows-10"
 WIN_ICONS="Windows-10-Icons"
 WIN_CURSOR="Windows-10-Cursors"
 
-ASSETS_DIR="Assets"
+
+# Création du dossier assets
+if [ ! -d "$HOME/.undercover" ]; then
+    mkdir "$HOME/.undercover"
+    cp "win10.jpg" "$HOME/.undercover"
+    cp "linux.jpg" "$HOME/.undercover"
+    loading_animation " Copie des fonds d'écran                 | "
+fi
+ASSETS_DIR="$HOME/.undercover"
 WIN_WALLPAPER="$ASSETS_DIR/win10.jpg"
 LIN_WALLPAPER="$ASSETS_DIR/linux.jpg"
+
 
 loading_animation " Sauvegarde de la configuration actuelle | "
 
@@ -80,8 +107,8 @@ toggle_mode() {
         gsettings set org.gnome.desktop.interface cursor-theme "$WIN_CURSOR"
 
         loading_animation " Modification du fond d'écran            | "
-        gsettings set org.gnome.desktop.background picture-uri "file://$DIR/win10.jpg"
-        gsettings set org.gnome.desktop.background picture-uri-dark "file://$DIR/win10.jpg"
+        gsettings set org.gnome.desktop.background picture-uri "file://$ASSETS_DIR/win10.jpg"
+        gsettings set org.gnome.desktop.background picture-uri-dark "file://$ASSETS_DIR/win10.jpg"
 
         loading_animation " Désactivation des animations GNOME      | "
         gsettings set org.gnome.desktop.interface enable-animations false
@@ -103,8 +130,8 @@ toggle_mode() {
         gsettings set org.gnome.desktop.interface enable-animations true
 
         loading_animation " Restauration du fond d'écran original   | "
-        gsettings set org.gnome.desktop.background picture-uri "file://$DIR/linux.jpg"
-        gsettings set org.gnome.desktop.background picture-uri-dark "file://$DIR/linux.jpg"
+        gsettings set org.gnome.desktop.background picture-uri "file://$ASSETS_DIR/linux.jpg"
+        gsettings set org.gnome.desktop.background picture-uri-dark "file://$ASSETS_DIR/linux.jpg"
 
         echo -e "${GREEN}\n         Mode normal restauré!\n${NC}"
     fi
