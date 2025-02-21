@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Définition des couleurs ANSI
 GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[1;36m'
@@ -8,30 +9,28 @@ PURPLE='\033[1;35m'
 WHITE='\033[1;37m'
 NC='\033[0m'
 
+# Fonction d'animation de chargement
 loading_animation() {
     local message="$1"
     local delay=0.08
     echo -ne "${YELLOW}${message}${NC} "
-    for i in {1..10}; do
+    for _ in {1..10}; do
         echo -ne "▓"
-        sleep $delay
+        sleep "$delay"
     done
     echo -e " ${GREEN}✔ Terminé!${NC}"
 }
 
-
-clear
+# Effacer l'écran et afficher l'ASCII ART
 echo -e "${BLUE}═══════════════════════════════════════════════${NC}"
 echo -e "${PURPLE}        ___ _  _ _____ ___  _   _ _____ ${NC}"
 echo -e "${PURPLE}       |_ _| \| |_   _/ _ \| | | |_   _|${NC}"
 echo -e "${PURPLE}        | || .' | | || (_) | |_| | | |  ${NC}"
 echo -e "${PURPLE}       |___|_|\_| |_| \___/ \___/  |_|  ${NC}"
-echo -e "${PURPLE}                                        ${NC}"
 echo -e "${BLUE}═══════════════════════════════════════════════${NC}"
 
+# Vérification de l'environnement GNOME
 loading_animation " Vérification de l'environnement GNOME   | "
-
-
 if [[ "$XDG_CURRENT_DESKTOP" != "GNOME" ]]; then
     echo -e "${RED} Ce script fonctionne uniquement sous GNOME.${NC}"
     exit 1
