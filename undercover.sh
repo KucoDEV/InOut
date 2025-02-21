@@ -70,8 +70,8 @@ WIN_CURSOR="Windows-10-Cursors"
 # Création du dossier assets
 if [ ! -d "$HOME/.undercover" ]; then
     mkdir "$HOME/.undercover"
-    cp "win10.jpg" "$HOME/.undercover"
-    cp "linux.jpg" "$HOME/.undercover"
+    cp "Assets/win10.jpg" "$HOME/.undercover"
+    cp "Assets/linux.jpg" "$HOME/.undercover"
     loading_animation " Copie des fonds d'écran                 | "
 fi
 ASSETS_DIR="$HOME/.undercover"
