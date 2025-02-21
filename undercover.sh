@@ -37,6 +37,8 @@ if [[ "$XDG_CURRENT_DESKTOP" != "GNOME" ]]; then
     exit 1
 fi
 
+DIR="$(pwd)"
+
 CONFIG_DIR="config"
 THEME_BACKUP="$CONFIG_DIR/gnome_theme.bak"
 ICON_BACKUP="$CONFIG_DIR/gnome_icons.bak"
@@ -79,7 +81,7 @@ toggle_mode() {
 
         loading_animation " Modification du fond d'écran            | "
         gsettings set org.gnome.desktop.background picture-uri "$ASSETS_DIR/win10.jpg"
-        gsettings set org.gnome.desktop.background picture-uri-dark "$ASSETS_DIR/win10.jpg"
+        gsettings set org.gnome.desktop.background picture-uri-dark ""$ASSETS_DIR/win10.jpg"
 
         loading_animation " Désactivation des animations GNOME      | "
         gsettings set org.gnome.desktop.interface enable-animations false
@@ -101,8 +103,8 @@ toggle_mode() {
         gsettings set org.gnome.desktop.interface enable-animations true
 
         loading_animation " Restauration du fond d'écran original   | "
-        gsettings set org.gnome.desktop.background picture-uri "$ASSETS_DIR/linux.jpg"
-        gsettings set org.gnome.desktop.background picture-uri-dark "$ASSETS_DIR/linux.jpg"
+        gsettings set org.gnome.desktop.background picture-uri "file://$HOME/Pictures/linux.jpg"
+        gsettings set org.gnome.desktop.background picture-uri-dark "file://$HOME/Pictures/linux.jpg"
 
         echo -e "${GREEN}\n         Mode normal restauré!\n${NC}"
     fi
